@@ -294,15 +294,109 @@
   }
   .nav-btn:hover { background:var(--yellow); color:var(--purple); }
 
-  /* ── RESPONSIVE ── */
+  /* ── HAMBURGER BUTTON ── */
+  .hamburger {
+    display:none; width:36px; height:36px; border:none; background:none; cursor:pointer;
+    flex-direction:column; align-items:center; justify-content:center; gap:5px; padding:0; z-index:200;
+  }
+  .hamburger span {
+    display:block; width:22px; height:2px; background:var(--gray-500); border-radius:2px;
+    transition:all .3s ease;
+  }
+  .hamburger.open span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity:0; }
+  .hamburger.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
+
+  /* ── SIDEBAR OVERLAY (mobile) ── */
+  .sidebar-overlay {
+    display:none; position:fixed; inset:0; background:rgba(30,23,48,.6); z-index:149;
+    backdrop-filter:blur(2px);
+  }
+  .sidebar-overlay.visible { display:block; }
+
+  /* ── RESPONSIVE — TABLET ── */
   @media (max-width:900px) {
-    .sidebar { width:180px; min-width:180px; }
-    .slide-inner { padding:32px; }
-    .h-super { font-size:40px; }
-    .h1 { font-size:32px; }
+    .hamburger { display:flex; }
+    .sidebar {
+      position:fixed; left:-260px; top:0; bottom:0; width:250px; min-width:250px;
+      z-index:150; transition:left .3s ease; padding-top:72px;
+    }
+    .sidebar.open { left:0; }
+    .stage { padding-top:48px; }
+    .slide { top:48px; }
+    .slide-inner { padding:32px 28px; }
+    .h-super { font-size:36px; }
+    .h1 { font-size:28px; }
+    .h2 { font-size:24px; }
+    .h3 { font-size:20px; }
     .pillars { grid-template-columns:repeat(2,1fr); }
-    .two-col { grid-template-columns:1fr; }
+    .two-col, .two-col--60-40 { grid-template-columns:1fr; }
     .pos-grid { grid-template-columns:1fr; }
+    .cards-grid { grid-template-columns:repeat(2,1fr) !important; }
+    .progress-bar-wrap { left:0; }
+    .nav-arrows { right:16px; bottom:16px; }
+    .brand-table { font-size:12px; }
+    .brand-table th, .brand-table td { padding:10px 12px; }
+    .funnel-step { padding:10px 12px; gap:12px; }
+    .funnel-step .bar { height:40px; padding:0 14px; font-size:12px; }
+    .persona-header { gap:12px; }
+    .persona-avatar { width:56px; height:56px; font-size:24px; }
+    .stat-card .num { font-size:28px; }
+    .personas-row { flex-direction:column !important; gap:16px !important; }
+    .journey-grid { grid-template-columns:repeat(3,1fr) !important; gap:12px !important; }
+    .competitor-grid { grid-template-columns:1fr !important; }
+  }
+
+  /* ── RESPONSIVE — MOBILE ── */
+  @media (max-width:600px) {
+    html, body { overflow-x:hidden; overflow-y:hidden; }
+    .topbar { padding:0 16px; height:44px; }
+    .breadcrumb { font-size:9px; letter-spacing:1.5px; }
+    .slide-counter { font-size:11px; }
+    .slide { top:44px; overflow-y:auto; -webkit-overflow-scrolling:touch; align-items:flex-start; }
+    .slide.slide--center-mobile { align-items:center !important; justify-content:center !important; }
+    .slide-inner { padding:24px 16px 80px; }
+    .h-super { font-size:28px; }
+    .h1 { font-size:22px; }
+    .h2 { font-size:20px; }
+    .h3 { font-size:17px; }
+    .subtitle { font-size:15px; }
+    .body { font-size:14px; }
+    .caption { font-size:11px; }
+    .stats-row { flex-direction:column; gap:12px; }
+    .stat-card { min-width:auto; padding:20px 16px; }
+    .stat-card .num { font-size:24px; }
+    .stat-card .label { font-size:12px; }
+    .pillars { grid-template-columns:1fr; gap:12px; }
+    .cards-grid { grid-template-columns:1fr !important; gap:12px; }
+    .pill-list { gap:6px; }
+    .pill { padding:6px 12px; font-size:12px; }
+    .funnel-step { flex-direction:column; gap:6px; padding:8px 0; }
+    .funnel-step .bar { width:100% !important; height:36px; font-size:12px; }
+    .funnel-step .meta { font-size:12px; white-space:normal; }
+    .brand-table { font-size:11px; }
+    .brand-table th, .brand-table td { padding:8px 8px; }
+    .brand-table th { font-size:10px; }
+    .persona-header { flex-direction:column; align-items:flex-start; gap:8px; margin-bottom:16px; }
+    .persona-avatar { width:48px; height:48px; font-size:20px; }
+    .reach-block { padding:12px 14px; }
+    .reach-block .reach-label { font-size:10px; }
+    .nav-arrows { right:12px; bottom:10px; gap:6px; }
+    .nav-btn { width:38px; height:38px; border-radius:10px; font-size:14px; }
+    .progress-bar-wrap { left:0; height:3px; }
+    .divider { margin:12px 0; }
+    .personas-row { flex-direction:column !important; gap:12px !important; }
+    /* Journey: stack phases vertically, each phase becomes a row */
+    .journey-grid { grid-template-columns:1fr !important; gap:12px !important; }
+    .journey-phase { flex-direction:row !important; align-items:stretch !important; gap:0 !important; }
+    .journey-card { flex:1; border-radius:12px 0 0 12px !important; border-right:none !important; }
+    .journey-arrow { padding:0 8px !important; align-items:center !important; font-size:16px !important; color:var(--purple-light); }
+    .journey-arrow { font-size:0 !important; }
+    .journey-arrow::after { content:'→'; font-size:16px; }
+    .journey-pos { flex:1 !important; border-radius:0 12px 12px 0 !important; border-left:none !important; }
+    .competitor-grid { grid-template-columns:1fr !important; }
+    /* Budget table horizontal scroll */
+    .brand-table { display:block; overflow-x:auto; -webkit-overflow-scrolling:touch; }
   }
 </style>
 </head>
@@ -310,9 +404,17 @@
 
 <!-- TOP BAR -->
 <div class="topbar">
-  <div class="breadcrumb"><span class="birdie" style="color:#A6513D;">BYRD HOUSE</span> <span>//</span> <span style="font-family:'Super Cartoon',cursive;color:rgb(159, 149, 177);">Little Stars Academy</span></div>
+  <div style="display:flex; align-items:center; gap:12px;">
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="breadcrumb"><span class="birdie" style="color:#A6513D;">BYRD HOUSE</span> <span>//</span> <span style="font-family:'Super Cartoon',cursive;color:rgb(159, 149, 177);">Little Stars Academy</span></div>
+  </div>
   <div class="slide-counter"><b id="cur">1</b> / <span id="tot">19</span></div>
 </div>
+
+<!-- SIDEBAR OVERLAY -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
 
 <!-- SHELL -->
 <div class="shell">
@@ -324,7 +426,7 @@
   <div class="stage" id="stage">
 
     <!-- ═══════════ 1 · TITLE ═══════════ -->
-    <div class="slide slide--off-white" data-chapter="Welcome">
+    <div class="slide slide--off-white slide--center-mobile" data-chapter="Welcome">
       <div class="slide-inner" style="text-align:center;">
         <img src="logo.png" alt="Little Stars Logo" style="max-height:120px; max-width:320px; object-fit:contain; margin-bottom:16px;">
         <div class="h-super" style="color:var(--purple);">Marketing Strategy</div>
@@ -404,7 +506,7 @@
         <div class="caption purple-text">Market Research</div>
         <div class="h1 purple-text" style="margin-top:8px;">Competitor Advertising Channels</div>
         <div class="divider"></div>
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:24px;">
+        <div class="competitor-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:24px;">
           <!-- Channel cards -->
           <div class="card">
             <div style="display:flex;align-items:center;gap:12px;">
@@ -504,7 +606,7 @@
       <div class="slide-inner">
         <div class="caption purple-text">Target Customer</div>
         <div class="h1 purple-text" style="margin-top:4px;">Our Three Personas</div>
-        <div style="display:flex; gap:24px; margin-top:24px; align-items:stretch;">
+        <div class="personas-row" style="display:flex; gap:24px; margin-top:24px; align-items:stretch;">
 
           <!-- Persona 1 -->
           <div style="flex:1; background:var(--off-white); border-radius:16px; padding:24px; border:1px solid var(--gray-200); display:flex; flex-direction:column; gap:16px;">
@@ -583,61 +685,61 @@
           <div class="h1 purple-text">The Parent Journey</div>
         </div>
         <div class="divider"></div>
-        <div style="display:grid; grid-template-columns:repeat(5,1fr); gap:16px; margin-top:8px;">
+        <div class="journey-grid" style="display:grid; grid-template-columns:repeat(5,1fr); gap:16px; margin-top:8px;">
 
           <!-- Awareness -->
-          <div style="display:flex; flex-direction:column; align-items:stretch;">
-            <div style="background:var(--white); border-radius:12px; padding:16px; border:1px solid var(--gray-200);">
+          <div class="journey-phase" style="display:flex; flex-direction:column; align-items:stretch;">
+            <div class="journey-card" style="background:var(--white); border-radius:12px; padding:16px; border:1px solid var(--gray-200);">
               <div class="dot-j" style="margin-bottom:8px;"></div>
               <h5 style="font-family:var(--heading-font); color:var(--purple); font-size:16px;">Awareness</h5>
               <p style="font-size:13px; color:var(--gray-700); margin-top:6px; line-height:1.5;">Google search, Facebook group mention, neighbor referral, drive-by signage</p>
             </div>
-            <div style="display:flex; justify-content:center; padding:4px 0; color:var(--purple-light); font-size:18px; line-height:1;">↓</div>
-            <div style="background:var(--white); border-radius:12px; padding:16px; border:1px solid var(--gray-200); flex:1; font-size:13px; color:var(--gray-700); line-height:1.55;">Google, and preschool site profiles. Facebook groups. Yard signs. Referral Program. Google Ads. Meta Ads</div>
+            <div class="journey-arrow" style="display:flex; justify-content:center; padding:4px 0; color:var(--purple-light); font-size:18px; line-height:1;">↓</div>
+            <div class="journey-pos" style="background:var(--white); border-radius:12px; padding:16px; border:1px solid var(--gray-200); flex:1; font-size:13px; color:var(--gray-700); line-height:1.55;">Google, and preschool site profiles. Facebook groups. Yard signs. Referral Program. Google Ads. Meta Ads</div>
           </div>
 
           <!-- Research -->
-          <div style="display:flex; flex-direction:column; align-items:stretch;">
-            <div style="background:var(--white); border-radius:12px; padding:16px; border:1px solid var(--gray-200);">
+          <div class="journey-phase" style="display:flex; flex-direction:column; align-items:stretch;">
+            <div class="journey-card" style="background:var(--white); border-radius:12px; padding:16px; border:1px solid var(--gray-200);">
               <div class="dot-j" style="margin-bottom:8px;"></div>
               <h5 style="font-family:var(--heading-font); color:var(--purple); font-size:16px;">Research</h5>
               <p style="font-size:13px; color:var(--gray-700); margin-top:6px; line-height:1.5;">Website visit, Google reviews, Winnie/Care.com listing, Facebook page scroll</p>
             </div>
-            <div style="display:flex; justify-content:center; padding:4px 0; color:var(--purple-light); font-size:18px; line-height:1;">↓</div>
-            <div style="background:var(--white); border-radius:12px; padding:16px; border:1px solid var(--gray-200); flex:1; font-size:13px; color:var(--gray-700); line-height:1.55;">Website with curriculum, accreditation, strong reviews</div>
+            <div class="journey-arrow" style="display:flex; justify-content:center; padding:4px 0; color:var(--purple-light); font-size:18px; line-height:1;">↓</div>
+            <div class="journey-pos" style="background:var(--white); border-radius:12px; padding:16px; border:1px solid var(--gray-200); flex:1; font-size:13px; color:var(--gray-700); line-height:1.55;">Website with curriculum, accreditation, strong reviews</div>
           </div>
 
           <!-- Consideration -->
-          <div style="display:flex; flex-direction:column; align-items:stretch;">
-            <div style="background:var(--white); border-radius:12px; padding:16px; border:1px solid var(--gray-200);">
+          <div class="journey-phase" style="display:flex; flex-direction:column; align-items:stretch;">
+            <div class="journey-card" style="background:var(--white); border-radius:12px; padding:16px; border:1px solid var(--gray-200);">
               <div class="dot-j" style="margin-bottom:8px;"></div>
               <h5 style="font-family:var(--heading-font); color:var(--purple); font-size:16px;">Consideration</h5>
               <p style="font-size:13px; color:var(--gray-700); margin-top:6px; line-height:1.5;">Shortlist 2–4 options, call or email for pricing, ask friends for opinions</p>
             </div>
-            <div style="display:flex; justify-content:center; padding:4px 0; color:var(--purple-light); font-size:18px; line-height:1;">↓</div>
-            <div style="background:var(--white); border-radius:12px; padding:16px; border:1px solid var(--gray-200); flex:1; font-size:13px; color:var(--gray-700); line-height:1.55;">Fast and professional phone calls and emails. Clear pricing page. Staff bios. Testimonials. Lead captured</div>
+            <div class="journey-arrow" style="display:flex; justify-content:center; padding:4px 0; color:var(--purple-light); font-size:18px; line-height:1;">↓</div>
+            <div class="journey-pos" style="background:var(--white); border-radius:12px; padding:16px; border:1px solid var(--gray-200); flex:1; font-size:13px; color:var(--gray-700); line-height:1.55;">Fast and professional phone calls and emails. Clear pricing page. Staff bios. Testimonials. Lead captured</div>
           </div>
 
           <!-- Tour -->
-          <div style="display:flex; flex-direction:column; align-items:stretch;">
-            <div style="background:var(--white); border-radius:12px; padding:16px; border:1px solid var(--gray-200);">
+          <div class="journey-phase" style="display:flex; flex-direction:column; align-items:stretch;">
+            <div class="journey-card" style="background:var(--white); border-radius:12px; padding:16px; border:1px solid var(--gray-200);">
               <div class="dot-j" style="margin-bottom:8px;"></div>
               <h5 style="font-family:var(--heading-font); color:var(--purple); font-size:16px;">Tour</h5>
               <p style="font-size:13px; color:var(--gray-700); margin-top:6px; line-height:1.5;">In-person visit, meet staff, see classrooms, ask about curriculum and ratios</p>
             </div>
-            <div style="display:flex; justify-content:center; padding:4px 0; color:var(--purple-light); font-size:18px; line-height:1;">↓</div>
-            <div style="background:var(--white); border-radius:12px; padding:16px; border:1px solid var(--gray-200); flex:1; font-size:13px; color:var(--gray-700); line-height:1.55;">Welcoming tour experience. Open house events. Follow up. Strong CRM.</div>
+            <div class="journey-arrow" style="display:flex; justify-content:center; padding:4px 0; color:var(--purple-light); font-size:18px; line-height:1;">↓</div>
+            <div class="journey-pos" style="background:var(--white); border-radius:12px; padding:16px; border:1px solid var(--gray-200); flex:1; font-size:13px; color:var(--gray-700); line-height:1.55;">Welcoming tour experience. Open house events. Follow up. Strong CRM.</div>
           </div>
 
           <!-- Enroll -->
-          <div style="display:flex; flex-direction:column; align-items:stretch;">
-            <div style="background:var(--white); border-radius:12px; padding:16px; border:1px solid var(--gray-200);">
+          <div class="journey-phase" style="display:flex; flex-direction:column; align-items:stretch;">
+            <div class="journey-card" style="background:var(--white); border-radius:12px; padding:16px; border:1px solid var(--gray-200);">
               <div class="dot-j yellow" style="margin-bottom:8px;"></div>
               <h5 style="font-family:var(--heading-font); color:var(--purple); font-size:16px;">Enroll</h5>
               <p style="font-size:13px; color:var(--gray-700); margin-top:6px; line-height:1.5;">Registration paperwork, first-week transition support</p>
             </div>
-            <div style="display:flex; justify-content:center; padding:4px 0; color:var(--purple-light); font-size:18px; line-height:1;">↓</div>
-            <div style="background:var(--white); border-radius:12px; padding:16px; border:1px solid var(--gray-200); flex:1; font-size:13px; color:var(--gray-700); line-height:1.55;">Smooth onboarding. Welcome packet. Follow up with Google review</div>
+            <div class="journey-arrow" style="display:flex; justify-content:center; padding:4px 0; color:var(--purple-light); font-size:18px; line-height:1;">↓</div>
+            <div class="journey-pos" style="background:var(--white); border-radius:12px; padding:16px; border:1px solid var(--gray-200); flex:1; font-size:13px; color:var(--gray-700); line-height:1.55;">Smooth onboarding. Welcome packet. Follow up with Google review</div>
           </div>
 
         </div>
@@ -958,12 +1060,14 @@
       const brdS  = 'rgba(93,60,144,0.20)';
 
       const NROWS  = ROWS.length;
-      const ROW_H  = 28;
-      const HEAD_H = 32;
-      const LABEL_W = 138;
+      const isMobile = () => window.innerWidth <= 600;
 
       function draw(){
-        const contW = cv.parentElement.clientWidth - 96;
+        const mobile = isMobile();
+        const ROW_H  = mobile ? 22 : 28;
+        const HEAD_H = mobile ? 26 : 32;
+        const LABEL_W = mobile ? 100 : 138;
+        const contW = cv.parentElement.clientWidth - (mobile ? 32 : 96);
         const CELL_W = (contW - LABEL_W) / DAYS;
         const totalW = contW;
         const totalH = HEAD_H + NROWS * ROW_H;
@@ -993,9 +1097,9 @@
           if(i%2===0){ ctx.fillStyle=bgS; ctx.fillRect(x0,0,x1-x0,totalH); }
           ctx.strokeStyle=brdT; ctx.lineWidth=0.5;
           ctx.beginPath(); ctx.moveTo(Math.round(x0)+0.5,0); ctx.lineTo(Math.round(x0)+0.5,totalH); ctx.stroke();
-          ctx.fillStyle=tSec; ctx.font='600 11px Inter,sans-serif';
+          ctx.fillStyle=tSec; ctx.font=mobile ? '600 9px Inter,sans-serif' : '600 11px Inter,sans-serif';
           ctx.textAlign='center'; ctx.textBaseline='middle';
-          ctx.fillText(m.label,(x0+x1)/2, HEAD_H/2);
+          ctx.fillText(mobile ? m.label.slice(0,3) : m.label,(x0+x1)/2, HEAD_H/2);
         });
 
         const may1x = LABEL_W + doff(new Date(2026,4,1))*CELL_W;
@@ -1017,8 +1121,8 @@
           ctx.strokeStyle=brdT; ctx.lineWidth=0.5;
           ctx.beginPath(); ctx.moveTo(0,Math.round(y+ROW_H)+0.5); ctx.lineTo(totalW,Math.round(y+ROW_H)+0.5); ctx.stroke();
 
-          const indent = row.cat ? 8 : 18;
-          ctx.font = row.cat ? '700 11px Inter,sans-serif' : '400 11px Inter,sans-serif';
+          const indent = row.cat ? 6 : (mobile ? 12 : 18);
+          ctx.font = row.cat ? (mobile?'700 9px Inter,sans-serif':'700 11px Inter,sans-serif') : (mobile?'400 9px Inter,sans-serif':'400 11px Inter,sans-serif');
           ctx.fillStyle = row.cat ? tPri : tSec;
           ctx.textAlign='left'; ctx.textBaseline='middle';
           ctx.save();
@@ -1059,7 +1163,7 @@
         });
 
         ctx.fillStyle='#E24B4A';
-        ctx.font='600 9px Inter,sans-serif';
+        ctx.font=mobile ? '600 7px Inter,sans-serif' : '600 9px Inter,sans-serif';
         ctx.textAlign='center'; ctx.textBaseline='middle';
         ctx.fillText('May 1', may1x, 10);
       }
@@ -1070,7 +1174,7 @@
     </script>
 
     <!-- ═══════════ 19 · CLOSING ═══════════ -->
-    <div class="slide slide--off-white" data-chapter="Timeline">
+    <div class="slide slide--off-white slide--center-mobile" data-chapter="Timeline">
       <div class="slide-inner" style="text-align:center;">
         <img src="logo.png" alt="Little Stars Logo" style="max-height:120px; max-width:320px; object-fit:contain; margin-bottom:16px;">
         <div class="h-super" style="color:var(--purple);">Let's Build<br>Little Stars</div>
@@ -1110,11 +1214,27 @@
 
   // Build sidebar
   const sidebar = document.getElementById('sidebar');
+  const hamburger = document.getElementById('hamburger');
+  const overlay = document.getElementById('sidebarOverlay');
+
+  function closeSidebar() {
+    sidebar.classList.remove('open');
+    hamburger.classList.remove('open');
+    overlay.classList.remove('visible');
+  }
+  function toggleSidebar() {
+    const isOpen = sidebar.classList.toggle('open');
+    hamburger.classList.toggle('open', isOpen);
+    overlay.classList.toggle('visible', isOpen);
+  }
+  hamburger.addEventListener('click', toggleSidebar);
+  overlay.addEventListener('click', closeSidebar);
+
   chapterMap.forEach((ch, ci) => {
     const el = document.createElement('div');
     el.className = 'ch';
     el.innerHTML = `<span class="dot"></span>${ch.name}`;
-    el.addEventListener('click', () => goTo(ch.startIdx));
+    el.addEventListener('click', () => { goTo(ch.startIdx); closeSidebar(); });
     sidebar.appendChild(el);
   });
   const chEls = sidebar.querySelectorAll('.ch');
@@ -1158,6 +1278,21 @@
 
   document.getElementById('nextBtn').addEventListener('click', next);
   document.getElementById('prevBtn').addEventListener('click', prev);
+
+  // Touch swipe support
+  let touchStartX = 0;
+  let touchStartY = 0;
+  document.addEventListener('touchstart', e => {
+    touchStartX = e.changedTouches[0].screenX;
+    touchStartY = e.changedTouches[0].screenY;
+  }, {passive:true});
+  document.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].screenX - touchStartX;
+    const dy = e.changedTouches[0].screenY - touchStartY;
+    if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 50) {
+      if (dx < 0) next(); else prev();
+    }
+  }, {passive:true});
 
   // Init
   update(-1);
